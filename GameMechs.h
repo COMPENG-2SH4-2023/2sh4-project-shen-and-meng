@@ -19,11 +19,20 @@ class GameMechs
     // You will include more data members and member functions to complete your design.
 
     private:
+    //control
         char input;
         bool exitFlag;
+        bool loseflag;
+        int delay;
+        int key_up,key_down,key_left,key_right;
         
+        
+    //bord
         int boardSizeX;
         int boardSizeY;
+
+    //data
+        int score;
 
     public:
         GameMechs();
