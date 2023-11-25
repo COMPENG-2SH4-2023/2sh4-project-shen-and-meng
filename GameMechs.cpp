@@ -6,7 +6,7 @@ GameMechs::GameMechs(){
     loseFlag=0;
     winFlag=0;
     delay = 100000; 
-    key_up = 87;key_left = 65;key_down = 83;key_right = 68; //WASD
+    key_up = 'w';key_left = 'a';key_down = 's';key_right = 'd'; //WASD
     
     key_quit=32; //space
 
