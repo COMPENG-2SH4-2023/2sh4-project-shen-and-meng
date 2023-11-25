@@ -8,6 +8,7 @@ using namespace std;
 
 GameMechs* Mech;
 Player* Player_obj;
+objPos Drawpos;
 
 void Initialize(void);
 void GetInput(void);
@@ -39,6 +40,7 @@ int main(void)
 void Initialize(void){
     Mech=new GameMechs;
     Player_obj = new Player(Mech);
+    Drawpos = objPos();
 
     MacUILib_init();
     MacUILib_clearScreen();
@@ -84,17 +86,16 @@ void RunLogic(void){
 void DrawScreen(void){
     MacUILib_clearScreen();    
     //cout<<(Mech->upperBoard[]);
-    objPos A;
-    Player_obj->getPlayerPos(A);
+    Player_obj->getPlayerPos(Drawpos);
     bool printed=0;
     for (int row=0;row<(Mech->getBoardSizeY());row++){
         for (int col=0;col<(Mech->getBoardSizeX());col++){
             if ((row == 0 || row == (Mech->getBoardSizeY()-1 ))|| (col == 0 || col == (Mech->getBoardSizeX()-1))){
                 MacUILib_printf("#");
             }
-            else if(row == A.y && col == A.x)
+            else if(row == Drawpos.y && col == Drawpos.x)
             {
-                MacUILib_printf("%c",A.symbol);
+                MacUILib_printf("%c",Drawpos.symbol);
             }
             else{
                
