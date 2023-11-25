@@ -22,31 +22,66 @@ class GameMechs
     //control
         char input;
         bool exitFlag;
-        bool loseflag;
+        bool loseFlag;
+        bool winFlag;
         int delay;
-        int key_up,key_down,key_left,key_right;
+        char key_up,key_left,key_down,key_right;
         
+        int key_quit;
         
     //bord
         int boardSizeX;
         int boardSizeY;
 
-    //data
+    //info
         int score;
+        int step_moved;
+    
+    //char upperBoard[];
 
     public:
+    //initializer
         GameMechs();
         GameMechs(int boardX, int boardY);
-        
-        bool getExitFlagStatus();
-        void setExitTrue();
 
+        
+    //getter
+        //flags
+        bool getExitFlagStatus();
+        bool getLoseFlagStatus();
+        bool getwinFlagStatus();
+    //input
         char getInput();
-        void setInput(char this_input);
-        void clearInput();
+    //keys
+        
+        char getKeyUp();
+        char getKeyLeft();
+        char getKeyDown();
+        char getKeyRight();
+    //info
+        int getDelay();
+        int getScore();
 
         int getBoardSizeX();
         int getBoardSizeY();
+
+    //setter
+        void setExitTrue();
+        void setLoseTrue();
+        void setWinTrue();
+
+        void setInput(char this_input);
+
+        void setKeys(char a,char b,char c,char d);
+        
+        void setDelay(int d);
+        void scoreIncrement(int i);
+
+        void assignStr(char str[],const char Temp_str2[],int size);
+    //clean
+        void clearInput();
+
+        
       
 
 };
