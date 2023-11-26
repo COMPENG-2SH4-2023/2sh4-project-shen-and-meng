@@ -19,7 +19,7 @@ class GameMechs
     // You will include more data members and member functions to complete your design.
 
     private:
-        //foodPos: objPos
+        objPos foodPos;
     //control
         char input;
         bool exitFlag;
@@ -66,7 +66,7 @@ class GameMechs
         int getBoardSizeX();
         int getBoardSizeY();
 
-        //void getFoodPos(objPos &returnPos);
+        void getFoodPos(objPos &returnPos);
 
     //setter
         void setExitTrue();
@@ -80,7 +80,8 @@ class GameMechs
         void setDelay(int d);
         void scoreIncrement(int i);
 
-        //void generateFood(objPos blockOff);
+        void generateFood(objPosArrayList* blockOff);//For iteration 3
+        void generateFood(objPos blockOff);//For iteration 2
 
         //void assignStr(char str[],const char Temp_str2[],int size);
     //clean

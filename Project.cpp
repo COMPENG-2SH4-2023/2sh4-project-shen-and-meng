@@ -3,12 +3,14 @@
 #include "objPos.h"
 #include "GameMechs.h"
 #include "Player.h"
+#include "time.h"
 using namespace std;
 
 
 GameMechs* Mech;
 Player* Player_obj;
 objPos Drawpos;
+objPos food;
 
 void Initialize(void);
 void GetInput(void);
@@ -38,10 +40,14 @@ int main(void)
 
 
 void Initialize(void){
+    srand(time(NULL));
     Mech=new GameMechs;
     Player_obj = new Player(Mech);
     Drawpos = objPos();
-
+    food = objPos();
+    Player_obj->getPlayerPos(Drawpos);
+    Mech->generateFood(Drawpos);
+    
     MacUILib_init();
     MacUILib_clearScreen();
 
@@ -78,6 +84,7 @@ void RunLogic(void){
     
     Player_obj->movePlayer();
     
+    
 
     
 
@@ -87,6 +94,7 @@ void DrawScreen(void){
     MacUILib_clearScreen();    
     //cout<<(Mech->upperBoard[]);
     Player_obj->getPlayerPos(Drawpos);
+    Mech->getFoodPos(food);
     bool printed=0;
     for (int row=0;row<(Mech->getBoardSizeY());row++){
         for (int col=0;col<(Mech->getBoardSizeX());col++){
@@ -97,10 +105,13 @@ void DrawScreen(void){
             {
                 MacUILib_printf("%c",Drawpos.symbol);
             }
-            else{
-               
-                    MacUILib_printf(" ");
-                
+            else if(row == food.y && col == food.x)
+            {
+                MacUILib_printf("%c",food.symbol); 
+            }
+            else
+            {
+                MacUILib_printf(" ");  
             }
             printed = 0;
         }
