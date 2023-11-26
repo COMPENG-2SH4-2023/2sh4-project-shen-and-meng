@@ -1,56 +1,69 @@
 #include "objPosArrayList.h"
 
+using namespace std;
 // Paste your CUTE Tested implementation here.
 // Paste your CUTE Tested implementation here.
 // Paste your CUTE Tested implementation here.
 
 
-objPosArrayList::objPosArrayList()
-{
+objPosArrayList::objPosArrayList(){
+    sizeList=0;
+    sizeArray=ARRAY_MAX_CAP;
+    aList = new objPos[ARRAY_MAX_CAP];
+}
+
+objPosArrayList::~objPosArrayList(){
+    delete[] aList;
+}
+objPosArrayList::objPosArrayList(const objPosArrayList &l){
+    sizeList=l.sizeList;
+    sizeArray=l.sizeArray;
+    aList = new objPos[ARRAY_MAX_CAP];
+    for(int i=0;i<sizeList;i++){
+        aList[i]=l.aList[i];
+    }
+}
+int objPosArrayList::getSize(){
+    return sizeList;
+}
+
+void objPosArrayList::insertHead(objPos thisPos){
+    if(sizeList==sizeArray){cout<<"array full"<<endl;return;}
+    for(int i=sizeList;i>0;i--){
+        aList[i]=aList[i-1];
+    }
+    aList[0]=thisPos;
+    sizeList++;
+}
+
+void objPosArrayList::insertTail(objPos thisPos){
+    if(sizeList==sizeArray){cout<<"array full"<<endl;return;}
+    aList[sizeList++]=thisPos;
+    
+}
+
+void objPosArrayList::removeHead(){
+    if(sizeArray==0){cout<<"array empty"<<endl;return;}
+    for(int i=1;i<sizeList;i++){
+        aList[i-1]=aList[i];
+    }
+    sizeList--;
+}
+
+void objPosArrayList::removeTail(){
+    if(sizeArray==0){cout<<"array empty"<<endl;return;}
+    sizeList--;
+}
+
+void objPosArrayList::getHeadElement(objPos &returnPos){
+    returnPos=aList[0];
 
 }
 
-objPosArrayList::~objPosArrayList()
-{
-
+void objPosArrayList::getTailElement(objPos &returnPos){
+    returnPos=aList[sizeList-1];
 }
 
-int objPosArrayList::getSize()
-{
-
-}
-
-void objPosArrayList::insertHead(objPos thisPos)
-{
-
-}
-
-void objPosArrayList::insertTail(objPos thisPos)
-{
-
-}
-
-void objPosArrayList::removeHead()
-{
-
-}
-
-void objPosArrayList::removeTail()
-{
-
-}
-
-void objPosArrayList::getHeadElement(objPos &returnPos)
-{
-
-}
-
-void objPosArrayList::getTailElement(objPos &returnPos)
-{
-
-}
-
-void objPosArrayList::getElement(objPos &returnPos, int index)
-{
-
+void objPosArrayList::getElement(objPos &returnPos, int index){
+    returnPos=aList[index];
 }
