@@ -20,21 +20,20 @@ class GameMechs
 
     private:
         objPos foodPos;
-    //control
+        //control
         char input;
         bool exitFlag;
         bool loseFlag;
         bool winFlag;
         int delay;
         char key_up,key_left,key_down,key_right;
-        
         int key_quit;
         
-    //bord
+        //bord
         int boardSizeX;
         int boardSizeY;
 
-    //info
+        //info
         int score;
         int step_moved;
     
@@ -51,15 +50,17 @@ class GameMechs
         bool getExitFlagStatus();
         bool getLoseFlagStatus();
         bool getwinFlagStatus();
-    //input
+
+        //input
         char getInput();
-    //keys
-        
+
+        //keys
         char getKeyUp();
         char getKeyLeft();
         char getKeyDown();
         char getKeyRight();
-    //info
+
+        //info
         int getDelay();
         int getScore();
 
@@ -69,6 +70,7 @@ class GameMechs
         void getFoodPos(objPos &returnPos);
 
     //setter
+        //data
         void setExitTrue();
         void setLoseTrue();
         void setWinTrue();
@@ -77,9 +79,11 @@ class GameMechs
 
         void setKeys(char a,char b,char c,char d);
         
+        //game setting
         void setDelay(int d);
         void scoreIncrement(int i);
 
+        //food
         void generateFood(objPosArrayList* blockOff);//For iteration 3
         void generateFood(objPos blockOff);//For iteration 2
 

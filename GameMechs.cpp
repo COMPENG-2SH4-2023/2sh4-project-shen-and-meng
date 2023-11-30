@@ -15,17 +15,9 @@ GameMechs::GameMechs(){
 
     boardSizeX=30;
     boardSizeY=15;
-    //assignStr(upperBoard,"################################\n",32);
 }
 
 GameMechs::GameMechs(int boardX, int boardY){
-    // input=0;
-    // exitFlag=0;
-    // loseflag=0;
-    // delay = 100000; 
-    // key_up = 87;key_left = 65;key_down = 83;key_right = 68;
-    // key_quit=' ';
-    // score=0;
     GameMechs();
 
     boardSizeX=boardX;
@@ -68,11 +60,6 @@ void GameMechs::setKeys(char a,char b,char c,char d){ //
 void GameMechs::setDelay(int d){delay=d;}
 void GameMechs::scoreIncrement(int i){score+=i;}
 
-/*
-void GameMechs::assignStr(char str[],const char Temp_str[],int size){
-    for(int i=0;i<size;i++){str[i]=Temp_str[i];}
-}
-*/
 //clean
 void GameMechs::clearInput(){input = 0;}
 
