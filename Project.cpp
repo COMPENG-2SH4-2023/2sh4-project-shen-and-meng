@@ -6,11 +6,11 @@
 #include "time.h"
 using namespace std;
 
-
+//create class
 GameMechs* Mech;
 Player* Player_obj;
-objPos Drawpos;
-objPos food;
+
+//objscan't be in global 
 
 void Initialize(void);
 void GetInput(void);
@@ -40,19 +40,14 @@ int main(void)
 
 
 void Initialize(void){
-    srand(time(NULL));
-    Mech=new GameMechs;
-    Player_obj = new Player(Mech);
-    Drawpos = objPos();
-    food = objPos();
-    Player_obj->getPlayerPos(Drawpos);
-    Mech->generateFood(Drawpos);
-    
     MacUILib_init();
     MacUILib_clearScreen();
+    srand(time(NULL));
 
-    
-    
+    //class
+    Mech=new GameMechs;
+    Player_obj = new Player(Mech);
+
 }
 
 void GetInput(void){
@@ -66,54 +61,68 @@ void RunLogic(void){
         if(Mech->getInput()=='m'){Mech->setWinTrue();}
         
         Player_obj->updatePlayerDir();
-        
-        //
-        //else if(input>=49&&input<=53){num_Target = (input-48);}   //changging the nummber of Target by entering number 1-5
-        //else if(input==43||input==45){g_temp=input-44;if((delay+g_temp)<150000&&(delay+g_temp)>5000){delay+=g_temp*5000;g_temp=0;}} //modify speed        
-        //
-        /*
-        else if(abs(Mech->getInput()-direction)>5){  //if the input isn't oppsit to current direction
-            if(input==key_up){step=-1;direction=input;}  //change to coresponding moving direction and update the moving direction 
-            else if(input==key_down){step=1;direction=input;}
-            else if(input==key_left){step=-1;direction=input;}
-            else if(input==key_right){step=1;direction=input;}   
-        }  
-        */
+
         Mech->clearInput();  //reset the input
     }
     
     Player_obj->movePlayer();
     
-    
-
-    
-
 }
 
 void DrawScreen(void){
-    MacUILib_clearScreen();    
-    //cout<<(Mech->upperBoard[]);
-    Player_obj->getPlayerPos(Drawpos);
-    Mech->getFoodPos(food);
+    MacUILib_clearScreen(); 
+    
+    
+    //temp storage  
+    objPosArrayList* PlayerList;//print to PosArray storing body
+    objPos Bodypos;
+    objPos FoodPos;
+    Bodypos = objPos();
+    FoodPos = objPos();
+    //assugn value
+    PlayerList=Player_obj->getPlayerList();
+
+    //Player_obj->getPlayerPos(Bodypos);   //moved in to loop
+    //Mech->getFoodPos(Bodypos);
+    Mech->generateFood(PlayerList);
+    Mech->getFoodPos(FoodPos);
+
+    //values
+    int body = PlayerList->getSize();
     bool printed=0;
+    //int start = 0;
+
     for (int row=0;row<(Mech->getBoardSizeY());row++){
         for (int col=0;col<(Mech->getBoardSizeX());col++){
             if ((row == 0 || row == (Mech->getBoardSizeY()-1 ))|| (col == 0 || col == (Mech->getBoardSizeX()-1))){
                 MacUILib_printf("#");
             }
-            else if(row == Drawpos.y && col == Drawpos.x)
-            {
-                MacUILib_printf("%c",Drawpos.symbol);
+
+            //print inside board
+            else{
+                //print food
+                if(row == FoodPos.y && col == FoodPos.x){
+                    MacUILib_printf("%c",FoodPos.symbol);
+                    printed=1;
+                }
+                
+                //print body
+                if(body!=0){
+                    for(int i=0;i<=body;i++){
+                        PlayerList->getElement(Bodypos,i);//
+                        if(row == Bodypos.y && col == Bodypos.x){
+                            MacUILib_printf("%c",Bodypos.symbol);
+                            body--;
+                            printed=1;
+                        }
+                    }
+                }
+                //print space
+                if(!printed){
+                    MacUILib_printf(" ");  
+                }
+                printed = 0;
             }
-            else if(row == food.y && col == food.x)
-            {
-                MacUILib_printf("%c",food.symbol); 
-            }
-            else
-            {
-                MacUILib_printf(" ");  
-            }
-            printed = 0;
         }
         MacUILib_printf("\n");
     }
