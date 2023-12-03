@@ -29,6 +29,8 @@ class objPosArrayList{
 
         void removeHead();
         void removeTail();
+
+        void sizeIncrement();
 };
 
 #endif

@@ -29,23 +29,24 @@ int objPosArrayList::getSize(){
 
 void objPosArrayList::insertHead(objPos thisPos){
     if(sizeList==sizeArray){cout<<"array full"<<endl;return;}
+    sizeList += 1;
     for(int i=sizeList;i>0;i--){
-        aList[i]=aList[i-1];
+        aList[i].setObjPos(aList[i-1]);
     }
     aList[0]=thisPos;
-    sizeList++;
+    //sizeList += 1;
 }
 
 void objPosArrayList::insertTail(objPos thisPos){
     if(sizeList==sizeArray){cout<<"array full"<<endl;return;}
-    aList[sizeList++]=thisPos;
+    aList[sizeList++].setObjPos(thisPos);
     
 }
 
 void objPosArrayList::removeHead(){
     if(sizeArray==0){cout<<"array empty"<<endl;return;}
     for(int i=1;i<sizeList;i++){
-        aList[i-1]=aList[i];
+        aList[i-1].setObjPos(aList[i]);
     }
     sizeList--;
 }
@@ -56,14 +57,19 @@ void objPosArrayList::removeTail(){
 }
 
 void objPosArrayList::getHeadElement(objPos &returnPos){
-    returnPos=aList[0];
+    returnPos.setObjPos(aList[0]);
 
 }
 
 void objPosArrayList::getTailElement(objPos &returnPos){
-    returnPos=aList[sizeList-1];
+    returnPos.setObjPos(aList[sizeList-1]);
 }
 
 void objPosArrayList::getElement(objPos &returnPos, int index){
-    returnPos=aList[index];
+    returnPos.setObjPos(aList[index]);
+}
+
+void objPosArrayList::sizeIncrement()
+{
+    sizeList += 1;
 }

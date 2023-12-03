@@ -69,6 +69,9 @@ class GameMechs
 
         void getFoodPos(objPos &returnPos);
 
+        void incrementScore();
+
+
     //setter
         //data
         void setExitTrue();
@@ -81,11 +84,10 @@ class GameMechs
         
         //game setting
         void setDelay(int d);
-        void scoreIncrement(int i);
 
         //food
-        //void generateFood(objPosArrayList* blockOff);//For iteration 3
-        void generateFood(objPosArrayList* blockOffList);//For iteration 2
+        void generateFood(objPosArrayList* blockOff);//For iteration 3
+        //void generateFood(objPosArrayList* blockOffList);//For iteration 2
 
         //void assignStr(char str[],const char Temp_str2[],int size);
     //clean

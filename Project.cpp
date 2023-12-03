@@ -9,7 +9,6 @@ using namespace std;
 //create class
 GameMechs* Mech;
 Player* Player_obj;
-
 //objscan't be in global 
 
 void Initialize(void);
@@ -47,7 +46,12 @@ void Initialize(void){
     //class
     Mech=new GameMechs;
     Player_obj = new Player(Mech);
-
+    
+    objPosArrayList* PlayerList;
+    //assugn value
+    PlayerList=Player_obj->getPlayerList();
+    Mech->generateFood(PlayerList);
+    
 }
 
 void GetInput(void){
@@ -74,24 +78,28 @@ void DrawScreen(void){
     
     
     //temp storage  
-    objPosArrayList* PlayerList;//print to PosArray storing body
+    int score = Mech->getScore();
+    //print to PosArray storing body
+    objPosArrayList* PlayerList;
     objPos Bodypos;
     objPos FoodPos;
     Bodypos = objPos();
     FoodPos = objPos();
     //assugn value
     PlayerList=Player_obj->getPlayerList();
-
     //Player_obj->getPlayerPos(Bodypos);   //moved in to loop
     //Mech->getFoodPos(Bodypos);
+    if(Player_obj->checkFoodConsumption())
+    {
     Mech->generateFood(PlayerList);
+    Mech->incrementScore();
+    }
     Mech->getFoodPos(FoodPos);
 
     //values
     int body = PlayerList->getSize();
     bool printed=0;
     //int start = 0;
-
     for (int row=0;row<(Mech->getBoardSizeY());row++){
         for (int col=0;col<(Mech->getBoardSizeX());col++){
             if ((row == 0 || row == (Mech->getBoardSizeY()-1 ))|| (col == 0 || col == (Mech->getBoardSizeX()-1))){
@@ -108,12 +116,13 @@ void DrawScreen(void){
                 
                 //print body
                 if(body!=0){
-                    for(int i=0;i<=body;i++){
+                    for(int i=0;i<body;i++){
                         PlayerList->getElement(Bodypos,i);//
                         if(row == Bodypos.y && col == Bodypos.x){
                             MacUILib_printf("%c",Bodypos.symbol);
-                            body--;
+                            
                             printed=1;
+                            break;
                         }
                     }
                 }
@@ -126,7 +135,7 @@ void DrawScreen(void){
         }
         MacUILib_printf("\n");
     }
-
+    MacUILib_printf("Score: %d\n",score);
 }
 
 void LoopDelay(void){

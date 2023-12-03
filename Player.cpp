@@ -135,7 +135,30 @@ void Player::movePlayer()
         playerPos.y = mainGameMechsRef->getBoardSizeY()-2;
     }
     playerPosList->insertHead(playerPos);
-    playerPosList->removeTail();
-    
+    if (!checkFoodConsumption())
+    {
+        playerPosList->removeTail();
+    }
+    playerPosList->getHeadElement(playerPos);
 }
 
+
+bool Player::checkFoodConsumption()
+{
+    objPos foodpos;
+    objPos head;
+    playerPosList->getHeadElement(head);
+    mainGameMechsRef->getFoodPos(foodpos);
+    if ((head.x == foodpos.x)&&(head.y == foodpos.y))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+void Player::increasePlayerLength()
+{
+    playerPosList->sizeIncrement();
+}
