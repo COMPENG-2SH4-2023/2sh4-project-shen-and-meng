@@ -9,7 +9,6 @@ using namespace std;
 //create class
 GameMechs* Mech;
 Player* Player_obj;
-//objscan't be in global 
 
 void Initialize(void);
 void GetInput(void);
@@ -48,7 +47,7 @@ void Initialize(void){
     Player_obj = new Player(Mech);
     
     objPosArrayList* PlayerList;
-    //assugn value
+    //assign value
     PlayerList=Player_obj->getPlayerList();
     Mech->generateFood(PlayerList);
     
@@ -65,7 +64,6 @@ void RunLogic(void){
         if(Mech->getInput()=='m'){Mech->setWinTrue();}
         
         Player_obj->updatePlayerDir();
-
         Mech->clearInput();  //reset the input
     }
     
@@ -89,10 +87,9 @@ void DrawScreen(void){
     objPos FoodPos;
     Bodypos = objPos();
     FoodPos = objPos();
-    //assugn value
+    //assign value
     PlayerList=Player_obj->getPlayerList();
-    //Player_obj->getPlayerPos(Bodypos);   //moved in to loop
-    //Mech->getFoodPos(Bodypos);
+    
     if(Player_obj->checkFoodConsumption())
     {
     Mech->generateFood(PlayerList);
@@ -119,12 +116,11 @@ void DrawScreen(void){
                 }
                 
                 //print body
-                if(body!=0){
+                else if(body!=0){
                     for(int i=0;i<body;i++){
-                        PlayerList->getElement(Bodypos,i);//
+                        PlayerList->getElement(Bodypos,i);//check through the body list 
                         if(row == Bodypos.y && col == Bodypos.x){
                             MacUILib_printf("%c",Bodypos.symbol);
-                            
                             printed=1;
                             break;
                         }

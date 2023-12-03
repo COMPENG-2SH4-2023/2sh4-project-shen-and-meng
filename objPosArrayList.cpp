@@ -1,10 +1,6 @@
 #include "objPosArrayList.h"
 
 using namespace std;
-// Paste your CUTE Tested implementation here.
-// Paste your CUTE Tested implementation here.
-// Paste your CUTE Tested implementation here.
-
 
 objPosArrayList::objPosArrayList(){
     sizeList=0;

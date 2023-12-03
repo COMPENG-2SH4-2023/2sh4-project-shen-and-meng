@@ -63,43 +63,6 @@ void GameMechs::incrementScore(){score+=1;}
 //clean
 void GameMechs::clearInput(){input = 0;}
 
-// void GameMechs::generateFood(objPosArrayList* blockOffList)//for iteration 2B
-// {
-//     int x_candidate;
-//     int y_candidate;
-//     char symbol;
-//     int flag_same;
-//     objPos blockOff;
- 
-    
-//     do
-//     {
-//         flag_same = 0;
-//         x_candidate = (rand() % (getBoardSizeX()-2))+1;
-//         y_candidate = (rand() % (getBoardSizeY()-2))+1;
-//         symbol = (rand() % (94))+33;
-
-//         for(int i=0;i<blockOffList->getSize();i++){  
-//             blockOffList->getElement(blockOff,i);
-//             if (symbol == blockOff.symbol || symbol == ' ')
-//             {
-//                 flag_same = 1;
-//             }
-        
-//             if (x_candidate == blockOff.x && y_candidate == blockOff.y)
-//             {
-//                 flag_same = 1;
-//                 break;
-//             }
-//         }
-        
-//     }while (flag_same);
-
-//     foodPos.x = x_candidate;
-//     foodPos.y = y_candidate;
-//     foodPos.symbol = symbol;
-// }
-
 void GameMechs::generateFood(objPosArrayList* blockOff) //This is for the array object one
 {
     int x_candidate;
