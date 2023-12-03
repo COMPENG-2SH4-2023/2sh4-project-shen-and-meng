@@ -158,6 +158,27 @@ bool Player::checkFoodConsumption()
         return false;
     }
 }
+
+bool Player::checkSelfCollision()
+{
+    int i;
+    objPos head;
+    objPos body;
+    playerPosList->getHeadElement(head);
+    for (i = 1;i<playerPosList->getSize();i++)
+    {
+        playerPosList->getElement(body,i);
+        if(body.x == head.x && body.y == head.y)
+        {
+            return true;
+        }
+
+    }
+    return false;
+
+    
+}
+
 void Player::increasePlayerLength()
 {
     playerPosList->sizeIncrement();

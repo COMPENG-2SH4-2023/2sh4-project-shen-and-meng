@@ -70,6 +70,10 @@ void RunLogic(void){
     }
     
     Player_obj->movePlayer();
+    if(Player_obj->checkSelfCollision())
+    {
+    Mech->setExitTrue();
+    }
     
 }
 
@@ -144,7 +148,7 @@ void LoopDelay(void){
 
 
 void CleanUp(void){
-    MacUILib_clearScreen(); 
+    //MacUILib_clearScreen(); 
 
     delete Mech;
     delete Player_obj;
