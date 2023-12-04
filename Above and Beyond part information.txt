@@ -1,0 +1,5 @@
+The Food Bucket generation part of the code is inside "GameMechs"
+
+Number"0"to"9"are special foods
+"0"to"3"has the effect of decrease size by 1 to 4,
+"3"to"9"has the effect of increase the effect time by 3 to 27, during effect time will increase speed by 2 and get 3 times of the score for each food consumpted. 
