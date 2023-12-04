@@ -30,7 +30,7 @@ class objPosArrayList{
         void removeHead();
         void removeTail();
 
-        void sizeIncrement();
+        void sizeIncrement(int d);
 };
 
 #endif

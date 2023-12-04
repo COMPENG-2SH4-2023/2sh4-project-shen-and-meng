@@ -19,6 +19,7 @@ class GameMechs
     // You will include more data members and member functions to complete your design.
 
     private:
+        objPosArrayList* foodBucket;
         objPos foodPos;
         //control
         char input;
@@ -29,6 +30,10 @@ class GameMechs
         char key_up,key_left,key_down,key_right;
         int key_quit;
         
+        
+        int duration;
+        int effect;
+        int bonus;
         //bord
         int boardSizeX;
         int boardSizeY;
@@ -42,8 +47,7 @@ class GameMechs
     //initializer
         GameMechs();
         GameMechs(int boardX, int boardY);
-        //~GameMechs();
-        //GameMechs(const GameMechs &m);
+        ~GameMechs();
         
     //getter
         //flags
@@ -64,12 +68,17 @@ class GameMechs
         int getDelay();
         int getScore();
 
+        int getEffect();
+        int getDuration();
+        int getBonus();
+
         int getBoardSizeX();
         int getBoardSizeY();
 
         void getFoodPos(objPos &returnPos);
+        objPosArrayList* getfoodlist();
 
-        void incrementScore();
+        
 
 
     //setter
@@ -77,13 +86,17 @@ class GameMechs
         void setExitTrue();
         void setLoseTrue();
         void setWinTrue();
-
+        void incrementScore(int d);
+        
         void setInput(char this_input);
 
         void setKeys(char a,char b,char c,char d);
         
         //game setting
         void setDelay(int d);
+        void setEffect(int d);
+        void setDuration(int d);
+        void setBonus(int d);
 
         //food
         void generateFood(objPosArrayList* blockOff);//For iteration 3

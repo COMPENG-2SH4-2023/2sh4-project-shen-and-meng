@@ -65,7 +65,7 @@ void objPosArrayList::getElement(objPos &returnPos, int index){
     returnPos.setObjPos(aList[index]);
 }
 
-void objPosArrayList::sizeIncrement()
+void objPosArrayList::sizeIncrement(int d)
 {
-    sizeList += 1;
+    sizeList += d;
 }

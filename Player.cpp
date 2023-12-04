@@ -145,18 +145,39 @@ void Player::movePlayer()
 
 bool Player::checkFoodConsumption()
 {
+    objPosArrayList* Foodlist;
     objPos foodpos;
     objPos head;
     playerPosList->getHeadElement(head);
-    mainGameMechsRef->getFoodPos(foodpos);
-    if ((head.x == foodpos.x)&&(head.y == foodpos.y))
-    {
-        return true;
+    Foodlist = mainGameMechsRef->getfoodlist();
+    for (int i = 0; i < Foodlist->getSize();i++){
+
+        Foodlist->getElement(foodpos,i);
+
+        if ((head.x == foodpos.x)&&(head.y == foodpos.y)){
+            if(foodpos.symbol>='3'&&foodpos.symbol<='9'){
+                mainGameMechsRef->setDuration((int(foodpos.symbol)-47)*3);//duration =3*simbol steps
+                mainGameMechsRef->setEffect(1);//score*5 in each consumption
+                mainGameMechsRef->setBonus(3);
+
+            }
+            if(foodpos.symbol>='0'&&foodpos.symbol<'3'){
+                if(playerPosList->getSize()>(int(foodpos.symbol)-47)){
+                    playerPosList->sizeIncrement(-(int(foodpos.symbol)-47));
+                }
+                else{
+                    playerPosList->sizeIncrement(-(playerPosList->getSize()-1));
+                }
+                mainGameMechsRef->setEffect(2);
+                mainGameMechsRef->setDuration(3);
+            }
+            return true;
+        }
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
+        
+    
 }
 
 bool Player::checkSelfCollision()
@@ -181,5 +202,5 @@ bool Player::checkSelfCollision()
 
 void Player::increasePlayerLength()
 {
-    playerPosList->sizeIncrement();
+    playerPosList->sizeIncrement(1);
 }

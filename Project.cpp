@@ -71,6 +71,7 @@ void RunLogic(void){
     if(Player_obj->checkSelfCollision())
     {
     Mech->setExitTrue();
+    Mech->setLoseTrue();
     }
     
 }
@@ -81,22 +82,36 @@ void DrawScreen(void){
     
     //temp storage  
     int score = Mech->getScore();
+    
     //print to PosArray storing body
     objPosArrayList* PlayerList;
+    objPosArrayList* FoodList;
     objPos Bodypos;
     objPos FoodPos;
     Bodypos = objPos();
     FoodPos = objPos();
     //assign value
     PlayerList=Player_obj->getPlayerList();
+    FoodList = Mech->getfoodlist();
     
     if(Player_obj->checkFoodConsumption())
     {
     Mech->generateFood(PlayerList);
-    Mech->incrementScore();
+    Mech->incrementScore(1*Mech->getBonus());
     }
-    Mech->getFoodPos(FoodPos);
+    FoodList = Mech->getfoodlist();
 
+    Mech->getFoodPos(FoodPos);
+    
+    if(Mech->getDuration()){
+        Mech->setDelay(50000);
+        Mech->setDuration(-1);
+    }
+    else{
+        Mech->setDelay(100000);
+        Mech->setBonus(1);
+
+    }
     //values
     int body = PlayerList->getSize();
     bool printed=0;
@@ -110,13 +125,18 @@ void DrawScreen(void){
             //print inside board
             else{
                 //print food
-                if(row == FoodPos.y && col == FoodPos.x){
-                    MacUILib_printf("%c",FoodPos.symbol);
-                    printed=1;
+                for (int i = 0;i < FoodList->getSize();i++)
+                {
+                    FoodList->getElement(FoodPos,i);
+                    if(row == FoodPos.y && col == FoodPos.x){
+                        MacUILib_printf("%c",FoodPos.symbol);
+                        printed=1;
+                        break;
+                    }
                 }
                 
                 //print body
-                else if(body!=0){
+                if(body!=0){
                     for(int i=0;i<body;i++){
                         PlayerList->getElement(Bodypos,i);//check through the body list 
                         if(row == Bodypos.y && col == Bodypos.x){
@@ -136,6 +156,28 @@ void DrawScreen(void){
         MacUILib_printf("\n");
     }
     MacUILib_printf("Score: %d\n",score);
+    if(Mech->getDuration()){
+        if(Mech->getEffect()==1){
+            MacUILib_printf("Speed up,Bonus x3\nEffect time left %d\n",Mech->getDuration());
+        }
+        if(Mech->getEffect()==2){
+            MacUILib_printf("Size Down\n");
+        }
+    }
+    
+
+    
+    if (Mech->getExitFlagStatus())
+    {
+        if (Mech->getLoseFlagStatus())
+        {
+            MacUILib_printf("Game Over\nFinal score %d",score);
+        }
+        else
+        {
+            MacUILib_printf("Forced Quit! Game Over");
+        }
+    }
 }
 
 void LoopDelay(void){
